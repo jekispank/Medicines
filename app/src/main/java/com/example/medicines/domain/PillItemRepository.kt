@@ -4,9 +4,9 @@ interface PillItemRepository {
 
     fun addPillItem(pillItem: PillItem)
 
-    fun editPillItem()
+    fun editPillItem(pillItem: PillItem)
 
-    fun getPillItem(pillItemId: Int)
+    fun getPillItem(pillItemId: Int): PillItem
 
     fun getPillsList(): List<PillItem>
 

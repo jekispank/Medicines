@@ -1,8 +1,6 @@
 package com.example.medicines.domain
 
 data class PillItem(
-    /* Medicine Id */
-    val id: Int?,
     /* Medicine's title  */
     val title: String?,
     /* Shows how much medicine are left to take  */
@@ -12,5 +10,12 @@ data class PillItem(
     /* Shows current condition of the medicine (using or not using)  */
     val condition: Boolean,
     /* The description of the method of administration and dosage */
-    val descriptionOfTaking: String?
+    val descriptionOfTaking: String?,
+    /* Medicine Id */
+    var id: Int = UNDEFINED_ID
 )
+{
+    companion object{
+        const val UNDEFINED_ID = -1
+    }
+}
