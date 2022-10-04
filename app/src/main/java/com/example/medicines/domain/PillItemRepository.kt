@@ -1,5 +1,7 @@
 package com.example.medicines.domain
 
+import androidx.lifecycle.LiveData
+
 interface PillItemRepository {
 
     fun addPillItem(pillItem: PillItem)
@@ -8,7 +10,7 @@ interface PillItemRepository {
 
     fun getPillItem(pillItemId: Int): PillItem
 
-    fun getPillsList(): List<PillItem>
+    fun getPillsList(): LiveData<List<PillItem>>
 
     fun removePillItem(pillItem: PillItem)
 }
