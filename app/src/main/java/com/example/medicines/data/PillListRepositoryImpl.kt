@@ -9,12 +9,12 @@ import com.example.medicines.domain.PillItemRepository
 object PillListRepositoryImpl : PillItemRepository {
 
     private val pillListLD = MutableLiveData<List<PillItem>>()
-    private val pillList = mutableListOf<PillItem>()
+    private val pillList = sortedSetOf<PillItem>({o1, o2 -> o1.id.compareTo(o2.id)})
 
     private var autoIncrementId = 0
 
     init {
-        for (i in 0..10){
+        for (i in 0..100){
             val item = PillItem("Name $i", (1.0 * i), (i*2), true, "$i a day", i)
             addPillItem(item)
         }
