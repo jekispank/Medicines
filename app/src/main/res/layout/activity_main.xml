@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCF7FF"
     tools:context=".presentation.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_pill_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_pill_enabled"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_pill_enabled" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_add_pill_item"
@@ -27,8 +28,8 @@
         android:contentDescription="Add new pill item"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-<!--        app:srcCompact="@drawable/ic_add"/>-->
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!--        app:srcCompact="@drawable/ic_add"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
