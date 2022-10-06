@@ -1,25 +1,13 @@
 package com.example.medicines.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.example.medicines.R
 import com.example.medicines.domain.PillItem
 
-class PillListAdapter : RecyclerView.Adapter<PillListAdapter.PillItemViewHolder>() {
-
-    var count = 0
-    var pillList = listOf<PillItem>()
-        set(value) {
-            val callback = PillListDiffCallback(pillList, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            diffResult.dispatchUpdatesTo(this)
-            field = value
-        }
+class PillListAdapter :
+    ListAdapter<PillItem, PillItemViewHolder>(PillItemDiffCallback()) {
 
     var onPillItemLongClickListener: ((PillItem) -> Unit)? = null
     var onPillItemClickListener: ((PillItem) -> Unit)? = null
@@ -37,9 +25,8 @@ class PillListAdapter : RecyclerView.Adapter<PillListAdapter.PillItemViewHolder>
     }
 
     override fun onBindViewHolder(holder: PillItemViewHolder, position: Int) {
-        Log.d("CreateViewHolder", "onBindViewHolder, count ${++count}")
 
-        val pillItem: PillItem = pillList[position]
+        val pillItem: PillItem = getItem(position)
         holder.apply {
             item.setOnLongClickListener {
                 onPillItemLongClickListener?.invoke(pillItem)
@@ -54,37 +41,10 @@ class PillListAdapter : RecyclerView.Adapter<PillListAdapter.PillItemViewHolder>
         }
     }
 
-    override fun getItemCount(): Int {
-        return pillList.size
-    }
-
     override fun getItemViewType(position: Int): Int {
-        val item = pillList[position]
+        val item = getItem(position)
         return if (item.condition) VIEW_TYPE_ENABLED
         else VIEW_TYPE_DISABLED
-    }
-
-    class PillItemViewHolder(val item: View) :
-        RecyclerView.ViewHolder(item) {
-
-        val tvTitle = item.findViewById<TextView>(R.id.tv_title)
-        val tvRestOfPills = item.findViewById<TextView>(R.id.rest_of_pills)
-        val descOfTaking = item.findViewById<TextView>(R.id.desc_of_taking)
-
-    }
-
-    interface OnPillItemLongClickListener {
-
-        fun onPillItemLongClick(pillItem: PillItem) {
-
-        }
-    }
-
-    interface OnPillItemClickListener {
-
-        fun onPillItemClick(pillItem: PillItem) {
-
-        }
     }
 
     companion object {

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.piLLList.observe(this) {
-            pillListAdapter.pillList = it
+            pillListAdapter.submitList(it)
         }
     }
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val item = pillListAdapter.pillList[viewHolder.adapterPosition]
+                    val item = pillListAdapter.currentList[viewHolder.adapterPosition]
                     viewModel.removePillItem(item)
 
                 }
