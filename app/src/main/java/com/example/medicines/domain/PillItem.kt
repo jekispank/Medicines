@@ -19,3 +19,4 @@ data class PillItem(
         const val UNDEFINED_ID = -1
     }
 }
+
