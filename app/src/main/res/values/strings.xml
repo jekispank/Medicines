@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Medicines</string>
     <string name="medicine">Medicine</string>
+    <string name="name">Name:</string>
+    <string name="count">Count:</string>
+    <string name="save">Save</string>
 </resources>
