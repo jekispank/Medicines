@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.piLLList.observe(this) {
             pillListAdapter.submitList(it)
         }
+        binding.buttonAddPillItem.setOnClickListener{
+            val intent = PillItemActivity.newIntentAddItem(this)
+            startActivity(intent)
+        }
     }
 
     fun setupRecyclerView() {
@@ -71,6 +75,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListener() {
         pillListAdapter.onPillItemClickListener = {
             Log.d("ClickListener", "Click-click on ${it.id}")
+            val intent = PillItemActivity.newIntentEditItem(this, it.id)
+            startActivity(intent)
         }
     }
 
