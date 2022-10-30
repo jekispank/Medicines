@@ -14,7 +14,7 @@ object PillListRepositoryImpl : PillItemRepository {
     private var autoIncrementId = 0
 
     init {
-        for (i in 0..10){
+        for (i in 0..25){
             val item = PillItem("Name $i", (1.0 * i), (i*2), true, "$i a day", i)
             addPillItem(item)
         }

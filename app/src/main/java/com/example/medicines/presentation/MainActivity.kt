@@ -1,6 +1,7 @@
 package com.example.medicines.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.medicines.R
 import com.example.medicines.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PillItemFragment.OnEditingFinishedListener {
     lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var pillListAdapter: PillListAdapter
@@ -27,17 +28,24 @@ class MainActivity : AppCompatActivity() {
         viewModel.piLLList.observe(this) {
             pillListAdapter.submitList(it)
         }
-        binding.buttonAddPillItem.setOnClickListener{
+        binding.buttonAddPillItem.setOnClickListener {
             if (isOnePaneMode()) {
                 val intent = PillItemActivity.newIntentAddItem(this)
                 startActivity(intent)
+            } else {
+                launchFragment(PillItemFragment.newInstanceAddItem())
             }
-            else launchFragment(PillItemFragment.newInstanceAddItem())
         }
     }
 
+
     private fun isOnePaneMode(): Boolean {
         return pillItemContainer == null
+    }
+
+    override fun onEditingFinished() {
+        Toast.makeText(this@MainActivity, "Success", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
     }
 
     private fun launchFragment(fragment: Fragment) {
@@ -48,10 +56,10 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun setupRecyclerView() {
+    private fun setupRecyclerView() {
         val rvPillList = binding.rcPillList
-        pillListAdapter = PillListAdapter()
-        rvPillList.apply {
+        with(rvPillList) {
+            pillListAdapter = PillListAdapter()
             adapter = pillListAdapter
             recycledViewPool.setMaxRecycledViews(
                 PillListAdapter.VIEW_TYPE_ENABLED,
@@ -62,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 PillListAdapter.MAX_POOL_SIZE
             )
         }
+
         setupClickListener()
         setupLongClickListener()
         setupSwipeListener(rvPillList)
@@ -96,8 +105,7 @@ class MainActivity : AppCompatActivity() {
             if (isOnePaneMode()) {
                 val intent = PillItemActivity.newIntentEditItem(this, it.id)
                 startActivity(intent)
-            }
-            else launchFragment(PillItemFragment.newInstanceEditItem(it.id))
+            } else launchFragment(PillItemFragment.newInstanceEditItem(it.id))
         }
     }
 

@@ -4,18 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2FFFB300"
     tools:context=".presentation.PillItemFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pill_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/selector"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/pill_count"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_pill_icon"
         app:layout_constraintVertical_chainStyle="packed">
@@ -24,6 +28,7 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
             android:hint="@string/name"
             android:inputType="textCapWords"
             android:paddingBottom="18dp" />
@@ -33,9 +38,11 @@
         android:id="@+id/pill_count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/selector"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/description_of_taking"
@@ -47,6 +54,7 @@
             android:id="@+id/et_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
             android:hint="@string/count"
             android:inputType="numberDecimal"
             android:paddingBottom="18dp" />
@@ -56,12 +64,12 @@
         android:id="@+id/description_of_taking"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/save_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pill_count"
@@ -71,8 +79,9 @@
             android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
             android:hint="@string/description"
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:paddingBottom="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,23 +89,29 @@
         android:id="@+id/save_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="72dp"
         android:layout_marginBottom="72dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_of_taking" />
 
     <ImageView
         android:id="@+id/profile_pill_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
-        android:layout_marginTop="65dp"
         android:layout_marginEnd="170dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101"
         app:srcCompat="@drawable/pills_2_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

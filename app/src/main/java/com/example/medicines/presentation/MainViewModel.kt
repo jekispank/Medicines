@@ -1,6 +1,5 @@
 package com.example.medicines.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.medicines.data.PillListRepositoryImpl
 import com.example.medicines.domain.EditPillItemUseCase

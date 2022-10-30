@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.medicines.domain.PillItem
 import com.google.android.material.textfield.TextInputLayout
 
 class PillItemFragment : Fragment() {
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private lateinit var viewModel: PillItemViewModel
     private lateinit var pillName: TextInputLayout
@@ -34,6 +36,15 @@ class PillItemFragment : Fragment() {
     private var pillItemId: Int = PillItem.UNDEFINED_ID
 
     private lateinit var binding: FragmentPillItemBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("FragmentLifeCycle", "Cycle now is onAttach")
+        if (context is OnEditingFinishedListener){
+            onEditingFinishedListener = context
+        }
+        else throw RuntimeException("Activity must to implement OnEditingFinishedListener")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         parseParams()
@@ -107,10 +118,14 @@ class PillItemFragment : Fragment() {
             pillName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
     }
 
+    interface OnEditingFinishedListener {
+        fun onEditingFinished()
+        
+    }
 
     private fun launchEditMode() {
         viewModel.getPillItem(pillItemId)
@@ -129,12 +144,12 @@ class PillItemFragment : Fragment() {
     }
 
     private fun launchAddMode() {
-        viewModel.getPillItem(pillItemId)
-        viewModel.pillItem.observe(viewLifecycleOwner) {
-            etName.setText(it.title)
-            etCount.setText(it.restOfPills.toString())
-            etDescription.setText(it.descriptionOfTaking)
-        }
+//        viewModel.getPillItem(pillItemId)
+//        viewModel.pillItem.observe(viewLifecycleOwner) {
+//            etName.setText(it.title)
+//            etCount.setText(it.restOfPills.toString())
+//            etDescription.setText(it.descriptionOfTaking)
+//        }
         saveBtn.setOnClickListener {
             viewModel.addPillItem(
                 etName.text?.toString(),
@@ -142,7 +157,6 @@ class PillItemFragment : Fragment() {
                 etDescription.text?.toString()
             )
         }
-
     }
 
     private fun parseParams() {
@@ -163,7 +177,6 @@ class PillItemFragment : Fragment() {
             pillItemId = args.getInt(PILL_ITEM_ID, pillItemId)
         }
     }
-
 
     private fun initViews() {
         pillName = binding.pillName

@@ -18,12 +18,12 @@ class PillItemViewModel : ViewModel() {
     private val addPillItemUseCase = AddPillItemUseCase(repository)
     private val editPillItemUseCase = EditPillItemUseCase(repository)
 
-    val _errorInputName = MutableLiveData<Boolean>()
+    private val _errorInputName = MutableLiveData<Boolean>()
     val errorInputName: LiveData<Boolean>
         get() = _errorInputName
 
 
-    val _errorInputCount = MutableLiveData<Boolean>()
+    private val _errorInputCount = MutableLiveData<Boolean>()
     val errorInputCount: LiveData<Boolean>
         get() = _errorInputCount
 
@@ -37,7 +37,7 @@ class PillItemViewModel : ViewModel() {
 
     fun getPillItem(pillItemId: Int) {
         val item = getPillItemUseCase.getPillItem(pillItemId)
-//        _pillItem.value = item
+        _pillItem.value = item
     }
 
     fun addPillItem(inputPillTitle: String?, inputCount: String?, inputDesc: String?) {
@@ -97,11 +97,11 @@ class PillItemViewModel : ViewModel() {
             result = false
         }
         if (count <= 0.0) {
-            TODO("Show invalidate count error")
+            _errorInputCount.value = true
             result = false
         }
         if (description.isBlank()) {
-            _errorInputCount.value = true
+            _errorInputName.value = true
             result = false
         }
         return result

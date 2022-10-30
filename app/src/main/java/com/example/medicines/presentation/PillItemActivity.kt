@@ -2,22 +2,14 @@ package com.example.medicines.presentation
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.parseIntent
 import android.os.Bundle
-import android.service.controls.templates.TemperatureControlTemplate.MODE_UNKNOWN
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.medicines.R
 import com.example.medicines.databinding.ActivityPillItemBinding
 import com.example.medicines.domain.PillItem
-import com.google.android.material.textfield.TextInputLayout
 
-class PillItemActivity : AppCompatActivity() {
+class PillItemActivity : AppCompatActivity(), PillItemFragment.OnEditingFinishedListener {
 
     private var screenMode = MODE_UNKNOWN
     private var pillItemId = PillItem.UNDEFINED_ID
@@ -32,6 +24,10 @@ class PillItemActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             launchRightMode()
         }
+    }
+
+    override fun onEditingFinished() {
+        finish()
     }
 
     private fun parseIntent() {
@@ -49,6 +45,8 @@ class PillItemActivity : AppCompatActivity() {
             }
             pillItemId = intent.getIntExtra(EXTRA_PILL_ITEM_ID, -1)
         }
+
+        Log.d("VERY_IMPORTANT", "$pillItemId")
     }
 
     private fun launchRightMode() {
